@@ -4,15 +4,16 @@
 import sys
 import pygame
 from constants import *
+from logger import log_state
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
 
-def main():
+def main(): 
     pygame.init()
     clock = pygame.time.Clock()
-    dt = 0
+    dt = 0.0
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -28,12 +29,13 @@ def main():
     player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
 
-    print("Starting asteroids!")
+    print(f"Starting Asteroids with pygame version: {pygame.version.ver}!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     while True:
+        log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -55,8 +57,7 @@ def main():
         
         # goes last
         pygame.display.flip() # refresh screen
-        interval = clock.tick(60)
-        dt = interval / 1000
+        dt = clock.tick(60) / 1000
         
 
 
